@@ -1,8 +1,9 @@
-nginx (1.21.3-1) unstable; urgency=medium
+nginx (1.21.3-100) unstable; urgency=medium
 
-  * NEW: v1.21.3.
+  * COMMIT: 28cea613e4d327458cc715425cfa9ee399c68b11.
+  * UPD: Move to DEB Store.
 
- -- Package Store <kitsune.solar@gmail.com>  Thu, 16 Sep 2021 14:00:00 +0300
+ -- Package Store <kitsune.solar@gmail.com>  Fri, 17 Sep 2021 07:05:32 +0000
 
 nginx (1.18.0-7) UNRELEASED; urgency=medium
 
