@@ -52,6 +52,7 @@ Tests: full-module-deps
 Restrictions: allow-stderr isolation-container
 Depends: nginx-full,
          curl,
+         libnginx-mod-brotli,
          libnginx-mod-http-auth-pam,
          libnginx-mod-http-cache-purge,
          libnginx-mod-http-dav-ext,
@@ -73,11 +74,13 @@ Depends: nginx-full,
          libnginx-mod-stream-geoip,
          libnginx-mod-stream-geoip2,
          libnginx-mod-stream,
+	 libnginx-mod-ssl-ct
 
 Tests: light-module-deps
 Restrictions: allow-stderr isolation-container
 Depends: nginx-light,
          curl,
+         libnginx-mod-brotli,
          libnginx-mod-http-auth-pam,
          libnginx-mod-http-cache-purge,
          libnginx-mod-http-dav-ext,
@@ -99,11 +102,13 @@ Depends: nginx-light,
          libnginx-mod-stream-geoip,
          libnginx-mod-stream-geoip2,
          libnginx-mod-stream,
+	 libnginx-mod-ssl-ct
 
 Tests: extras-module-deps
 Restrictions: allow-stderr isolation-container
 Depends: nginx-extras,
          curl,
+         libnginx-mod-brotli,
          libnginx-mod-http-auth-pam,
          libnginx-mod-http-cache-purge,
          libnginx-mod-http-dav-ext,
@@ -125,3 +130,4 @@ Depends: nginx-extras,
          libnginx-mod-stream-geoip,
          libnginx-mod-stream-geoip2,
          libnginx-mod-stream,
+	 libnginx-mod-ssl-ct

@@ -1,12 +1,17 @@
 #!/usr/bin/make -f
+include /usr/share/dpkg/default.mk
 export DH_VERBOSE=1
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 debian_cflags:=$(shell dpkg-buildflags --get CFLAGS) -fPIC $(shell dpkg-buildflags --get CPPFLAGS)
 debian_ldflags:=$(shell dpkg-buildflags --get LDFLAGS) -fPIC
 
+export LUAJIT_INC := $(subst -I,,$(shell pkg-config --cflags luajit))
+export LUAJIT_LIB := /usr
+
 FLAVOURS := core light extras
 DYN_MODS := \
+	brotli \
 	http-auth-pam \
 	http-cache-purge \
 	http-dav-ext \
@@ -28,7 +33,8 @@ DYN_MODS := \
 	rtmp \
 	stream \
 	stream-geoip \
-	stream-geoip2
+	stream-geoip2 \
+	ssl-ct
 
 MODULESDIR = $(CURDIR)/debian/modules
 BASEDIR = $(CURDIR)
@@ -114,6 +120,7 @@ extras_configure_flags := \
 			--with-stream_geoip_module=dynamic \
 			--with-stream_ssl_module \
 			--with-stream_ssl_preread_module \
+			--add-dynamic-module=$(MODULESDIR)/brotli \
 			--add-dynamic-module=$(MODULESDIR)/http-headers-more-filter \
 			--add-dynamic-module=$(MODULESDIR)/http-auth-pam \
 			--add-dynamic-module=$(MODULESDIR)/http-cache-purge \
@@ -127,10 +134,11 @@ extras_configure_flags := \
 			--add-dynamic-module=$(MODULESDIR)/rtmp \
 			--add-dynamic-module=$(MODULESDIR)/http-uploadprogress \
 			--add-dynamic-module=$(MODULESDIR)/http-upstream-fair \
-			--add-dynamic-module=$(MODULESDIR)/http-subs-filter
+			--add-dynamic-module=$(MODULESDIR)/http-subs-filter \
+			--add-dynamic-module=$(MODULESDIR)/ssl-ct
 
 %:
-	dh $@ --without autoreconf
+	dh $@
 
 override_dh_auto_configure: config_patch_modules $(foreach flavour,$(FLAVOURS),config.arch.$(flavour))
 override_dh_auto_build:     $(foreach flavour,$(FLAVOURS),build.arch.$(flavour))
